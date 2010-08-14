@@ -61,7 +61,7 @@ based on %{name} .
 %_kde_libdir/libqoauth.prl
 %_kde_libdir/libqoauth.so
 %_kde_libdir/pkgconfig/qoauth.pc
-%_kde_libdir/qt4/mkspecs/features/oauth.prf
+%_kde_prefix/lib/qt4/mkspecs/features/oauth.prf
 
 #-----------------------------------------------------------------------------
 
