@@ -3,14 +3,12 @@ Summary:       Qt-based C++ library for OAuth authorization scheme
 Group:         Graphical desktop/KDE
 Version:       1.0.1
 Release:       %mkrel 1
-License:       GPL
-URL:           http://www.kde.org
-Source0:       %name-%version-src.tar.bz2
+License:       LGPLv3+
+URL:           http://github.com/ayoy/qoauth
+Source0:       http://files.ayoy.net/qoauth/release/%version/src/%{name}-%{version}-src.tar.bz2
 BuildRequires: qt4-devel
 BuildRequires: qca2-devel 
 BuildRequires: doxygen
-BuildRequires: qca2-plugin-openssl
-BuildRequires: kde4-macros
 Requires:      qca2-plugin-openssl
 BuildRoot: %_tmppath/%name-%version-%release-root
 
@@ -35,13 +33,12 @@ the application developer no more than 4 methods, namely:
 Summary: %name core library
 Group: System/Libraries
 
-
 %description -n %libqoauth
 %name core library.
 
 %files -n %libqoauth
 %defattr(-,root,root)
-%_kde_libdir/libqoauth.so.%{qoauth_major}*
+%_libdir/libqoauth.so.%{qoauth_major}*
 
 #-----------------------------------------------------------------------------
 
@@ -57,24 +54,22 @@ based on %{name} .
 %files devel
 %defattr(-,root,root)
 %doc doc/html doc/examples
-%_kde_includedir/QtOAuth
-%_kde_libdir/libqoauth.prl
-%_kde_libdir/libqoauth.so
-%_kde_libdir/pkgconfig/qoauth.pc
-%_kde_prefix/lib/qt4/mkspecs/features/oauth.prf
+%_includedir/QtOAuth
+%_libdir/libqoauth.prl
+%_libdir/libqoauth.so
+%_libdir/pkgconfig/qoauth.pc
+%qt4dir/mkspecs/features/oauth.prf
 
 #-----------------------------------------------------------------------------
 
 %prep
 %setup -q -n %{name}-%{version}-src
-sed -i -e '/^ *docs \\$/d' \
-       -e "s!\(\$\${INSTALL_PREFIX}\)/lib.*!%{_libdir}!" src/src.pro
 sed -i -e 's\/lib\/%{_lib}\g' src/pcfile.sh
 
-
 %build
-%qmake_qt4 qoauth.pro
+%qmake_qt4
 %make
+
 %install
 rm -rf %buildroot
 
