@@ -9,7 +9,6 @@ Source0:       http://files.ayoy.net/qoauth/release/%version/src/%{name}-%{versi
 BuildRequires: qt4-devel
 BuildRequires: qca2-devel 
 BuildRequires: doxygen
-Requires:      qca2-plugin-openssl
 BuildRoot: %_tmppath/%name-%version-%release-root
 
 %description 
@@ -25,13 +24,13 @@ the application developer no more than 4 methods, namely:
   parameters (provided only for convenience).
 
 #-----------------------------------------------------------------------------   
-
 %define qoauth_major 1
 %define libqoauth %mklibname qoauth %qoauth_major
 
 %package -n %libqoauth
 Summary: %name core library
 Group: System/Libraries
+Requires: qca2-plugin-openssl
 
 %description -n %libqoauth
 %name core library.
