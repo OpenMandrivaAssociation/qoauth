@@ -2,7 +2,7 @@ Name:          qoauth
 Summary:       Qt-based C++ library for OAuth authorization scheme
 Group:         Graphical desktop/KDE
 Version:       1.0.1
-Release:       %mkrel 4
+Release:       %mkrel 6
 License:       LGPLv3+
 URL:           http://github.com/ayoy/qoauth
 Source0:       http://files.ayoy.net/qoauth/release/%version/src/%{name}-%{version}-src.tar.bz2
@@ -85,3 +85,26 @@ make check || :
 
 %clean
 rm -fr %buildroot
+
+
+%changelog
+* Thu May 05 2011 Oden Eriksson <oeriksson@mandriva.com> 1.0.1-4mdv2011.0
++ Revision: 669382
+- mass rebuild
+
+* Fri Jan 28 2011 Sergio Rafael Lemke <sergio@mandriva.com> 1.0.1-3
++ Revision: 633706
+- bump release to make choqok and other buildable
+
+* Fri Aug 20 2010 Funda Wang <fwang@mandriva.org> 1.0.1-2mdv2011.0
++ Revision: 571482
+- move requires into lib package as there is no main package generated.
+- correct url and license
+- use standard prefix as qt has nothing to do with kde's prefix
+
+* Sat Aug 14 2010 Nicolas Lécureuil <nlecureuil@mandriva.com> 1.0.1-1mdv2011.0
++ Revision: 569811
+- Fix file list
+- import qoauth
+
+
