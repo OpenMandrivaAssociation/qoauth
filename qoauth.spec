@@ -2,14 +2,15 @@ Name:          qoauth
 Summary:       Qt-based C++ library for OAuth authorization scheme
 Group:         Graphical desktop/KDE
 Version:       1.0.1
-Release:       %mkrel 6
+Release:       7
 License:       LGPLv3+
 URL:           http://github.com/ayoy/qoauth
 Source0:       http://files.ayoy.net/qoauth/release/%version/src/%{name}-%{version}-src.tar.bz2
 BuildRequires: qt4-devel
 BuildRequires: qca2-devel 
 BuildRequires: doxygen
-BuildRoot: %_tmppath/%name-%version-%release-root
+
+%define debug_package %{nil}
 
 %description 
 QOAuth is an attempt to support interaction with OAuth-powered network 
@@ -70,8 +71,6 @@ sed -i -e 's\/lib\/%{_lib}\g' src/pcfile.sh
 %make
 
 %install
-rm -rf %buildroot
-
 make install INSTALL="install -p" INSTALL_ROOT=%{buildroot}
 doxygen Doxyfile
 
@@ -84,7 +83,6 @@ done
 make check || :
 
 %clean
-rm -fr %buildroot
 
 
 %changelog
