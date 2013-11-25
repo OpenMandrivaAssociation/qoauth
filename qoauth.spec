@@ -1,16 +1,16 @@
-Name:          qoauth
-Summary:       Qt-based C++ library for OAuth authorization scheme
-Group:         Graphical desktop/KDE
-Version:       1.0.1
-Release:       7
-License:       LGPLv3+
-URL:           http://github.com/ayoy/qoauth
-Source0:       http://files.ayoy.net/qoauth/release/%version/src/%{name}-%{version}-src.tar.bz2
-BuildRequires: qt4-devel
-BuildRequires: qca2-devel 
-BuildRequires: doxygen
-
 %define debug_package %{nil}
+
+Summary:	Qt-based C++ library for OAuth authorization scheme
+Name:		qoauth
+Group:		Graphical desktop/KDE
+Version:	1.0.1
+Release:	7
+License:	LGPLv3+
+Url:		http://github.com/ayoy/qoauth
+Source0:	http://files.ayoy.net/qoauth/release/%{version}/src/%{name}-%{version}-src.tar.bz2
+BuildRequires:	doxygen
+BuildRequires:	qca2-devel 
+BuildRequires:	qt4-devel
 
 %description 
 QOAuth is an attempt to support interaction with OAuth-powered network 
@@ -25,45 +25,46 @@ the application developer no more than 4 methods, namely:
   parameters (provided only for convenience).
 
 #-----------------------------------------------------------------------------   
-%define qoauth_major 1
-%define libqoauth %mklibname qoauth %qoauth_major
+%define major 1
+%define libqoauth %mklibname qoauth %{major}
 
-%package -n %libqoauth
-Summary: %name core library
-Group: System/Libraries
-Requires: qca2-plugin-openssl
+%package -n %{libqoauth}
+Summary:	%{name} core library
+Group:		System/Libraries
+Requires:	qca2-plugin-openssl
 
-%description -n %libqoauth
-%name core library.
+%description -n %{libqoauth}
+%{name} core library.
 
-%files -n %libqoauth
-%defattr(-,root,root)
-%_libdir/libqoauth.so.%{qoauth_major}*
+%files -n %{libqoauth}
+%{_libdir}/libqoauth.so.%{major}*
 
 #-----------------------------------------------------------------------------
 
-%package devel
-Summary: Devel stuff for %name
-Group: Development/KDE and Qt
-Requires: %libqoauth = %version-%release
+%define devname %mklibname -d qoauth
 
-%description  devel
+%package -n %{devname}
+Summary:	Devel stuff for %{name}
+Group:		Development/KDE and Qt
+Requires:	%{libqoauth} = %{version}-%{release}
+%rename		%{name}-devel
+
+%description -n %{devname}
 This package contains header files needed if you wish to build applications
 based on %{name} .
 
-%files devel
-%defattr(-,root,root)
+%files -n %{devname}
 %doc doc/html doc/examples
-%_includedir/QtOAuth
-%_libdir/libqoauth.prl
-%_libdir/libqoauth.so
-%_libdir/pkgconfig/qoauth.pc
-%qt4dir/mkspecs/features/oauth.prf
+%{_includedir}/QtOAuth
+%{_libdir}/libqoauth.prl
+%{_libdir}/libqoauth.so
+%{_libdir}/pkgconfig/qoauth.pc
+%{qt4dir}/mkspecs/features/oauth.prf
 
 #-----------------------------------------------------------------------------
 
 %prep
-%setup -q -n %{name}-%{version}-src
+%setup -qn %{name}-%{version}-src
 sed -i -e 's\/lib\/%{_lib}\g' src/pcfile.sh
 
 %build
@@ -81,28 +82,4 @@ done
 
 %check
 make check || :
-
-%clean
-
-
-%changelog
-* Thu May 05 2011 Oden Eriksson <oeriksson@mandriva.com> 1.0.1-4mdv2011.0
-+ Revision: 669382
-- mass rebuild
-
-* Fri Jan 28 2011 Sergio Rafael Lemke <sergio@mandriva.com> 1.0.1-3
-+ Revision: 633706
-- bump release to make choqok and other buildable
-
-* Fri Aug 20 2010 Funda Wang <fwang@mandriva.org> 1.0.1-2mdv2011.0
-+ Revision: 571482
-- move requires into lib package as there is no main package generated.
-- correct url and license
-- use standard prefix as qt has nothing to do with kde's prefix
-
-* Sat Aug 14 2010 Nicolas Lécureuil <nlecureuil@mandriva.com> 1.0.1-1mdv2011.0
-+ Revision: 569811
-- Fix file list
-- import qoauth
-
 
