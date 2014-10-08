@@ -9,7 +9,7 @@ License:	LGPLv3+
 Url:		http://github.com/ayoy/qoauth
 Source0:	http://files.ayoy.net/qoauth/release/%{version}/src/%{name}-%{version}-src.tar.bz2
 BuildRequires:	doxygen
-BuildRequires:	qca2-devel 
+BuildRequires:	qca2-devel-qt4
 BuildRequires:	qt4-devel
 
 %description 
@@ -31,7 +31,7 @@ the application developer no more than 4 methods, namely:
 %package -n %{libqoauth}
 Summary:	%{name} core library
 Group:		System/Libraries
-Requires:	qca2-plugin-openssl
+Requires:	%{_lib}qca2-qt4-plugin-openssl
 
 %description -n %{libqoauth}
 %{name} core library.
@@ -81,5 +81,6 @@ for file in doc/html/*; do
 done
 
 %check
+export LD_LIBRARY_PATH=/usr/%{_lib}/qt4/:$LD_LIBRARY_PATH
 make check || :
 
