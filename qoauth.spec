@@ -4,7 +4,7 @@ Summary:	Qt-based C++ library for OAuth authorization scheme
 Name:		qoauth
 Group:		Graphical desktop/KDE
 Version:	1.0.1
-Release:	13
+Release:	14
 License:	LGPLv3+
 Url:		http://github.com/ayoy/qoauth
 Source0:	http://files.ayoy.net/qoauth/release/%{version}/src/%{name}-%{version}-src.tar.bz2
