@@ -65,9 +65,9 @@ diff -Nru a/src/src.pro b/src/src.pro
  
 -    headers.path = $${INSTALL_PREFIX}/include/QtOAuth
 +    contains(QMAKE_HOST.arch, x86_64) {
-+    headers.path = $${INSTALL_PREFIX}/lib64/qt5/include/QtOAuth
++    headers.path = $${INSTALL_PREFIX}/include/qt5/QtOAuth
 +    } else {
-+    headers.path = $${INSTALL_PREFIX}/lib/qt5/include/QtOAuth
++    headers.path = $${INSTALL_PREFIX}/include/qt5/QtOAuth
 +    }
      docs.path = $${INSTALL_PREFIX}/share/doc/$${TARGET}-$${VERSION}/html
      pkgconfig.path = $${target.path}/pkgconfig
