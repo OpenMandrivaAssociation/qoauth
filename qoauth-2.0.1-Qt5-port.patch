@@ -29,7 +29,7 @@ diff -Nru a/src/pcfile.sh b/src/pcfile.sh
  exec_prefix=\${prefix}
  libdir=\${prefix}/lib
 -includedir=\${prefix}/include/QtOAuth
-+includedir=\${libdir}/qt5/include/QtOAuth
++includedir=\${prefix}/include/qt5/QtOAuth
  
  Name: QOAuth
 -Description: Qt OAuth support library
