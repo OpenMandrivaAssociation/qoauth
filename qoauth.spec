@@ -3,14 +3,18 @@
 Summary:	Qt-based C++ library for OAuth authorization scheme
 Name:		qoauth
 Group:		Graphical desktop/KDE
-Version:	1.0.1
-Release:	15
+Version:	2.0.1
+Release:	1
 License:	LGPLv3+
 Url:		http://github.com/ayoy/qoauth
-Source0:	http://files.ayoy.net/qoauth/release/%{version}/src/%{name}-%{version}-src.tar.bz2
+Source0:	http://files.ayoy.net/qoauth/release/%{version}/src/%{name}-%{version}-src.tar.gz
+Patch1:		qoauth-2.0.1-Qt5-port.patch
 BuildRequires:	doxygen
-BuildRequires:	qca2-devel-qt4
-BuildRequires:	qt4-devel
+
+BuildRequires: pkgconfig(Qt5Core)
+BuildRequires: pkgconfig(Qt5Network)
+BuildRequires: pkgconfig(Qt5Test)
+BuildRequires: pkgconfig(qca2-qt5)
 
 %description 
 QOAuth is an attempt to support interaction with OAuth-powered network 
@@ -25,19 +29,19 @@ the application developer no more than 4 methods, namely:
   parameters (provided only for convenience).
 
 #-----------------------------------------------------------------------------   
-%define major 1
-%define libqoauth %mklibname qoauth %{major}
+%define major 2
+%define libqoauth %mklibname qoauth 5 %{major}
 
 %package -n %{libqoauth}
 Summary:	%{name} core library
 Group:		System/Libraries
-Requires:	%{_lib}qca2-qt4-plugin-openssl
+Requires:	%{_lib}qca2-plugin-openssl
 
 %description -n %{libqoauth}
 %{name} core library.
 
 %files -n %{libqoauth}
-%{_libdir}/libqoauth.so.%{major}*
+%{_libdir}/libqoauth5.so.%{major}*
 
 #-----------------------------------------------------------------------------
 
@@ -55,20 +59,21 @@ based on %{name} .
 
 %files -n %{devname}
 %doc doc/html doc/examples
-%{_includedir}/QtOAuth
-%{_libdir}/libqoauth.prl
-%{_libdir}/libqoauth.so
-%{_libdir}/pkgconfig/qoauth.pc
-%{qt4dir}/mkspecs/features/oauth.prf
+%{_libdir}/qt5/include/QtOAuth
+%{_libdir}/libqoauth5.prl
+%{_libdir}/libqoauth5.so
+%{_libdir}/pkgconfig/qoauth-qt5.pc
+%{_libdir}/qt5/mkspecs/features/oauth.prf
 
 #-----------------------------------------------------------------------------
 
 %prep
 %setup -qn %{name}-%{version}-src
+%apply_patches
 sed -i -e 's\/lib\/%{_lib}\g' src/pcfile.sh
 
 %build
-%qmake_qt4
+%qmake_qt5
 %make
 
 %install
@@ -81,6 +86,6 @@ for file in doc/html/*; do
 done
 
 %check
-export LD_LIBRARY_PATH=/usr/%{_lib}/qt4/:$LD_LIBRARY_PATH
+export LD_LIBRARY_PATH=/usr/%{_lib}/qt5/:$LD_LIBRARY_PATH
 make check || :
 

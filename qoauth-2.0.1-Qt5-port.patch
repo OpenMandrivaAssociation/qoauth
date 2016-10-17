@@ -1,0 +1,74 @@
+diff -Nru a/oauth.prf b/oauth.prf
+--- a/oauth.prf	2015-01-08 21:09:03.000000000 +0100
++++ b/oauth.prf	2016-06-15 09:56:34.442727261 +0200
+@@ -1,8 +1,8 @@
+ QOAUTH_INCDIR = $$[QT_INSTALL_HEADERS]
+ QOAUTH_LIBDIR = $$[QT_INSTALL_LIBS]
+ 
+-QOAUTH_INCDIR ~= s!/qt4*!!
+-QOAUTH_LIBDIR ~= s!/qt4*!!
++#QOAUTH_INCDIR ~= s!/qt4*!!
++#QOAUTH_LIBDIR ~= s!/qt4*!!
+ 
+ CONFIG *= qt
+ CONFIG += crypto
+@@ -33,7 +33,7 @@
+     exists($$PWD/qoauth.pro): INCLUDEPATH += $$QOAUTH_INCDIR
+     else: INCLUDEPATH += $$QOAUTH_INCDIR/QtOAuth
+     LIBS += -L$$QOAUTH_LIBDIR
+-    LINKAGE = -lqoauth
++    LINKAGE = -lqoauth5
+     CONFIG(debug, debug|release) {
+         windows:LINKAGE = -lqoauthd1
+         mac:LINKAGE = -lqoauth_debug
+diff -Nru a/src/pcfile.sh b/src/pcfile.sh
+--- a/src/pcfile.sh	2015-01-08 21:09:03.000000000 +0100
++++ b/src/pcfile.sh	2016-06-15 09:55:37.301413034 +0200
+@@ -5,11 +5,11 @@
+ echo "prefix=$1
+ exec_prefix=\${prefix}
+ libdir=\${prefix}/lib
+-includedir=\${prefix}/include/QtOAuth
++includedir=\${libdir}/qt5/include/QtOAuth
+ 
+ Name: QOAuth
+-Description: Qt OAuth support library
++Description: Qt5 OAuth support library
+ Version: $2
+-Requires: QtCore QtNetwork qca2
+-Libs: -L\${libdir} -lqoauth
+-Cflags: -I\${includedir}" > qoauth.pc
++Requires: Qt5Core Qt5Network qca2-qt5
++Libs: -L\${libdir} -lqoauth5
++Cflags: -I\${includedir}" > qoauth-qt5.pc
+diff -Nru a/src/src.pro b/src/src.pro
+--- a/src/src.pro	2015-01-08 21:09:03.000000000 +0100
++++ b/src/src.pro	2016-06-15 09:06:56.000000000 +0200
+@@ -1,4 +1,4 @@
+-TARGET = qoauth
++TARGET = qoauth5
+ DESTDIR = ../lib
+ win32:DLLDESTDIR = $${DESTDIR}
+ 
+@@ -78,7 +78,7 @@
+ 
+     # this creates a pkgconfig file
+     system( ./pcfile.sh $${INSTALL_PREFIX} $${VERSION} )
+-    pkgconfig.files = qoauth.pc
++    pkgconfig.files = qoauth-qt5.pc
+     
+     contains(QMAKE_HOST.arch, x86_64) {
+       target.path = $${INSTALL_PREFIX}/lib64
+@@ -86,7 +86,11 @@
+       target.path = $${INSTALL_PREFIX}/lib
+     }
+ 
+-    headers.path = $${INSTALL_PREFIX}/include/QtOAuth
++    contains(QMAKE_HOST.arch, x86_64) {
++    headers.path = $${INSTALL_PREFIX}/lib64/qt5/include/QtOAuth
++    } else {
++    headers.path = $${INSTALL_PREFIX}/lib/qt5/include/QtOAuth
++    }
+     docs.path = $${INSTALL_PREFIX}/share/doc/$${TARGET}-$${VERSION}/html
+     pkgconfig.path = $${target.path}/pkgconfig
+     INSTALLS += \
