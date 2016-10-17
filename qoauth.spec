@@ -15,6 +15,7 @@ BuildRequires: pkgconfig(Qt5Core)
 BuildRequires: pkgconfig(Qt5Network)
 BuildRequires: pkgconfig(Qt5Test)
 BuildRequires: pkgconfig(qca2-qt5)
+BuildRequires: qmake5
 
 %description 
 QOAuth is an attempt to support interaction with OAuth-powered network 
