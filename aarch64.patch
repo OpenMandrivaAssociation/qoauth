@@ -1,0 +1,14 @@
+diff --git a/src/src.pro b/src/src.pro
+index 3023e82..cd4a15f 100644
+--- a/src/src.pro
++++ b/src/src.pro
+@@ -82,6 +82,9 @@ else:unix {
+     
+     contains(QMAKE_HOST.arch, x86_64) {
+       target.path = $${INSTALL_PREFIX}/lib64
++    }
++    contains(QMAKE_HOST.arch, aarch64) {
++      target.path = $${INSTALL_PREFIX}/lib64
+     } else {
+       target.path = $${INSTALL_PREFIX}/lib
+     }

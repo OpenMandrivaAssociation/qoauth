@@ -4,11 +4,12 @@ Summary:	Qt-based C++ library for OAuth authorization scheme
 Name:		qoauth
 Group:		Graphical desktop/KDE
 Version:	2.0.1
-Release:	2
+Release:	2.1
 License:	LGPLv3+
 Url:		http://github.com/ayoy/qoauth
 Source0:	http://files.ayoy.net/qoauth/release/%{version}/src/%{name}-%{version}-src.tar.gz
 Patch1:		qoauth-2.0.1-Qt5-port.patch
+Patch2:		aarch64.patch
 BuildRequires:	doxygen
 
 BuildRequires: pkgconfig(Qt5Core)
