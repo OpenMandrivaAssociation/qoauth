@@ -73,7 +73,7 @@ based on %{name} .
 
 %prep
 %setup -qn %{name}-%{version}-src
-%apply_patches
+%autopatch -p1
 sed -i -e 's\/lib\/%{_lib}\g' src/pcfile.sh
 
 %build
