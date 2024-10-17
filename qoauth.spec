@@ -6,7 +6,7 @@ Group:		Graphical desktop/KDE
 Version:	2.0.1
 Release:	2.3
 License:	LGPLv3+
-Url:		http://github.com/ayoy/qoauth
+Url:		https://github.com/ayoy/qoauth
 Source0:	http://files.ayoy.net/qoauth/release/%{version}/src/%{name}-%{version}-src.tar.gz
 Patch1:		qoauth-2.0.1-Qt5-port.patch
 %ifarch aarch64
